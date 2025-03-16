@@ -1,5 +1,6 @@
 
 #include <ego_planner/ego_replan_fsm.h>
+#include <iostream>
 
 namespace ego_planner
 {
@@ -169,7 +170,11 @@ namespace ego_planner
       wps_[i](0) = waypoints_[i][0];
       wps_[i](1) = waypoints_[i][1];
       wps_[i](2) = waypoints_[i][2];
-    }
+      std::cout << "Waypoint " << i << " X: " << waypoints_[i][0] << std::endl;
+      std::cout << "Waypoint " << i << " Y: " << waypoints_[i][1] << std::endl;
+      std::cout << "Waypoint " << i << " Z: " << waypoints_[i][2] << std::endl;
+      std::cout << "-------------------------" << std::endl; // Separator for clarity
+   }
 
     // 用 visualization_->displayGoalPoint() 方法对waypoint进行可视化
     for (size_t i = 0; i < (size_t)waypoint_num_; i++)
@@ -262,7 +267,11 @@ namespace ego_planner
     odom_orient_.x() = msg->pose.pose.orientation.x;
     odom_orient_.y() = msg->pose.pose.orientation.y;
     odom_orient_.z() = msg->pose.pose.orientation.z;
-
+    std::cout << "----------------------" << std::endl;
+    std::cout << "Position: (" 
+              << odom_pos_(0) << ", "
+              << odom_pos_(1) << ", "
+              << odom_pos_(2) << ")" << std::endl;
     have_odom_ = true;
   }
 
@@ -471,7 +480,7 @@ namespace ego_planner
     {
       printFSMExecState();
       if (!have_odom_)
-        cout << "no odom." << endl;
+        cout << "no odoms." << endl;
       if (!have_target_)
         cout << "wait for goal or trigger." << endl;
       fsm_num = 0;

@@ -345,7 +345,6 @@ int main(int argc, char **argv)
             auto state = quad.getState();
             stateToOdomMsg(state, odom_msg);
             quadToImuMsg(quad, imu);
-            odom_pub_->publish(odom_msg);
             imu_pub_->publish(imu);
         }
 
